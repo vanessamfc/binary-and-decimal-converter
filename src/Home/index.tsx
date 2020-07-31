@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
+import { FiRepeat } from "react-icons/fi";
 
-// import { Container } from './styles';
+import { Container } from "./styles";
 
 function Home() {
   const [binary, setBinary] = useState("");
@@ -39,15 +40,19 @@ function Home() {
   }
 
   return (
-    <div>
+    <Container>
+      <h1>
+        Binary <FiRepeat></FiRepeat> Decimal
+      </h1>
       <input
+        autoFocus
         type="text"
         value={binary}
         onChange={(e) => {
           setBinary(e.target.value);
         }}
       />
-      {decimal ? <h1>{decimal}</h1> : <h1>texe</h1>}
+      {decimal ? <h2>{decimal}</h2> : <h2>texe</h2>}
       <input
         type="text"
         value={decimalNumber}
@@ -55,8 +60,8 @@ function Home() {
           setDecimalNumber(e.target.value);
         }}
       />
-      {binaryNumber ? <h1>{binaryNumber}</h1> : <h1>texe</h1>}
-    </div>
+      {binaryNumber ? <h2>{binaryNumber}</h2> : <h2>texe</h2>}
+    </Container>
   );
 }
 
