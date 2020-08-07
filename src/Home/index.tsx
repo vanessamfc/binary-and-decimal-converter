@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { FiRepeat } from "react-icons/fi";
-
+import { toast } from 'react-toastify';
 import { Container } from "./styles";
 
 function Home() {
@@ -11,6 +11,10 @@ function Home() {
   const binaryNumber = useMemo(HandleSubmitDecimal, [decimalNumber]);
 
   function HandleSubmit() {
+    if(parseInt(binary)>1){
+      return toast.error('The number cant be higher than 1')
+    }
+    
     const newArray = binary.split("");
     const binaryArray = newArray.map((number) => {
       return parseInt(number);
