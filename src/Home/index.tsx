@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FiRepeat } from "react-icons/fi";
 import { toast } from 'react-toastify';
 import { Container } from "./styles";
@@ -8,14 +8,20 @@ function Home() {
   const [binary, setBinary] = useState("");
   const [decimalNumber, setDecimalNumber] = useState("");
 
-  const decimal = useMemo(HandleSubmit, [binary]);
   useEffect(()=>{
+    console.log(binary)
+    HandleSubmit();
     const valid = validatedBinaryString(binary);
     if(!valid) {
       toast.error('Not valided')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [binary]);
-  const binaryNumber = useMemo(HandleSubmitDecimal, [decimalNumber]);
+
+  useEffect(()=>{
+    HandleSubmitDecimal();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [decimalNumber]);
 
   function HandleSubmit() {
     const valid = validatedBinaryString(binary);
@@ -29,10 +35,13 @@ function Home() {
       return parseInt(number);
     });
     binaryArray.reverse();
-
-    return binaryArray.reduce((acc, item, index) => {
+    const decimalValue = binaryArray.reduce((acc, item, index) => {
       return acc + item * 2 ** index;
     }, 0);
+    if(decimalValue.toString() !== decimalNumber){
+      setDecimalNumber(decimalValue.toString())
+    }
+    return decimalValue
   }
 
   function HandleSubmitDecimal() {
@@ -46,10 +55,11 @@ function Home() {
     }
     binaryArray.push(newNumber % 2);
     binaryArray.reverse();
-    binaryArray.reduce((acc, item) => {
+    const binaryValue = binaryArray.reduce((acc, item) => {
       return acc + item.toString();
     }, "");
-    return binaryArray;
+    setBinary(binaryValue.toString())
+    return binaryValue;
   }
 
   return (
@@ -65,7 +75,6 @@ function Home() {
           setBinary(e.target.value);
         }}
       />
-      {decimal ? <h2>{decimal}</h2> : <h2>texe</h2>}
       <input
         type="text"
         value={decimalNumber}
@@ -73,7 +82,6 @@ function Home() {
           setDecimalNumber(e.target.value);
         }}
       />
-      {binaryNumber ? <h2>{binaryNumber}</h2> : <h2>texe</h2>}
     </Container>
   );
 }
