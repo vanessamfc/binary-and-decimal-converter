@@ -75,6 +75,7 @@ function Home() {
           setBinary(e.target.value);
         }}
       />
+    <h2>Binary</h2>
       <input
         type="text"
         value={decimalNumber}
@@ -82,6 +83,7 @@ function Home() {
           setDecimalNumber(e.target.value);
         }}
       />
+      <h2>Decimal</h2>
     </Container>
   );
 }
