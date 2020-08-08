@@ -1,18 +1,27 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { FiRepeat } from "react-icons/fi";
 import { toast } from 'react-toastify';
 import { Container } from "./styles";
+import validatedBinaryString from "../utils/validatedBinaryString";
 
 function Home() {
   const [binary, setBinary] = useState("");
   const [decimalNumber, setDecimalNumber] = useState("");
 
   const decimal = useMemo(HandleSubmit, [binary]);
+  useEffect(()=>{
+    const valid = validatedBinaryString(binary);
+    if(!valid) {
+      toast.error('Not valided')
+    }
+  }, [binary]);
   const binaryNumber = useMemo(HandleSubmitDecimal, [decimalNumber]);
 
   function HandleSubmit() {
-    if(parseInt(binary)>1){
-      return toast.error('The number cant be higher than 1')
+    const valid = validatedBinaryString(binary);
+
+    if(!valid) {
+      return 'Error';
     }
     
     const newArray = binary.split("");
