@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { FiRepeat } from "react-icons/fi";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { Container } from "./styles";
 import validatedBinaryString from "../utils/validatedBinaryString";
 
@@ -9,47 +9,58 @@ function Home() {
   const [decimalNumber, setDecimalNumber] = useState("");
 
   const decimal = useMemo(HandleSubmit, [binary]);
-  useEffect(()=>{
+  const binaryNumber = useMemo(HandleSubmitDecimal, [decimalNumber]);
+  useEffect(() => {
     const valid = validatedBinaryString(binary);
-    if(!valid) {
-      toast.error('Not valided')
+    if (!valid) {
+      toast.error("Not valided");
     }
   }, [binary]);
-  const binaryNumber = useMemo(HandleSubmitDecimal, [decimalNumber]);
 
   function HandleSubmit() {
+    if (binary === "") {
+      setDecimalNumber("");
+      return;
+    }
     const valid = validatedBinaryString(binary);
 
-    if(!valid) {
-      return 'Error';
+    if (!valid) {
+      return "Error";
     }
-    
+
     const newArray = binary.split("");
     const binaryArray = newArray.map((number) => {
       return parseInt(number);
     });
     binaryArray.reverse();
 
-    return binaryArray.reduce((acc, item, index) => {
+    const decimalText = binaryArray.reduce((acc, item, index) => {
       return acc + item * 2 ** index;
     }, 0);
+
+    setDecimalNumber(decimalText.toString());
   }
 
   function HandleSubmitDecimal() {
+    if (decimalNumber === "") {
+      setBinary("");
+      return;
+    }
     if (!decimalNumber) return "";
     let newNumber = parseInt(decimalNumber);
-    const binaryArray = [];
+    const decimalArray = [];
 
     while (newNumber >= 2) {
-      binaryArray.push(newNumber % 2);
+      decimalArray.push(newNumber % 2);
       newNumber = parseInt((newNumber / 2).toString());
     }
-    binaryArray.push(newNumber % 2);
-    binaryArray.reverse();
-    binaryArray.reduce((acc, item) => {
+    decimalArray.push(newNumber % 2);
+    decimalArray.reverse();
+    const binaryText = decimalArray.reduce((acc, item) => {
       return acc + item.toString();
     }, "");
-    return binaryArray;
+
+    setBinary(binaryText);
   }
 
   return (
@@ -57,6 +68,7 @@ function Home() {
       <h1>
         Binary <FiRepeat></FiRepeat> Decimal
       </h1>
+      <p>Binary</p>
       <input
         autoFocus
         type="text"
@@ -65,7 +77,7 @@ function Home() {
           setBinary(e.target.value);
         }}
       />
-      {decimal ? <h2>{decimal}</h2> : <h2>texe</h2>}
+      <p>Decimal</p>
       <input
         type="text"
         value={decimalNumber}
@@ -73,7 +85,6 @@ function Home() {
           setDecimalNumber(e.target.value);
         }}
       />
-      {binaryNumber ? <h2>{binaryNumber}</h2> : <h2>texe</h2>}
     </Container>
   );
 }
