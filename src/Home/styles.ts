@@ -11,8 +11,15 @@ export const Container = styled.div`
   > h1 {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     font-size: 45px;
+    > svg {
+      margin: 0 5px;
+    }
+  }
+  > p {
+    margin-bottom: 5px;
+    font-size: 20px;
   }
   > input {
     background: none;
@@ -25,6 +32,7 @@ export const Container = styled.div`
     font-family: "Share Tech Mono", monospace;
     padding-left: 10px;
     color: #00c853;
+    margin-bottom: 20px;
   }
 
   > h2 {
