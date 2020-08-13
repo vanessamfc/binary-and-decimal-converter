@@ -2,7 +2,7 @@
 
 ## Sobre
 
-É uma aplicação que converte um número binário para decimal e vice-versa
+É uma aplicação que converte um número binário para decimal e vice-versa.
 
 ![Home Page](/readmeGif/home.gif?raw=true "Home Page")
 
