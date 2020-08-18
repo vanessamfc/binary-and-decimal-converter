@@ -1,5 +1,5 @@
 # Binary and decimal converter
-
+Demo: [![Netlify Status](https://api.netlify.com/api/v1/badges/554b037c-709f-4d56-8d0c-eee0e4fa69eb/deploy-status)](https://app.netlify.com/sites/adoring-joliot-bca7f3/deploys)
 ## Sobre
 
 É uma aplicação que converte um número binário para decimal e vice-versa.
