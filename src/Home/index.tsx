@@ -13,7 +13,7 @@ function Home() {
   useEffect(() => {
     const valid = validatedBinaryString(binary);
     if (!valid) {
-      toast.error("Not valided");
+      toast.error("Please enter a valid binary number");
     }
   }, [binary]);
 
